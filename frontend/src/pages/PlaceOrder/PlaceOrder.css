@@ -1,0 +1,37 @@
+.placeorder{
+    width: 100%;
+    display: flex;
+    gap: 20px;
+}
+
+.placeorder-qr{
+    border-right: 1px solid #747474;
+    display: flex;
+    justify-content: center;
+}
+
+.placeorder-cod-title{
+    color: #262626;
+    font-weight: 500;
+}
+
+.placeorder-cod-desc{
+    margin-top: 10px;
+    color: #747474;
+}
+
+.placeorder-cod{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+@media (max-width:750px){
+    .placeorder{
+        flex-direction: column;
+    }
+    .placeorder-qr{
+        border-right: none;
+    }
+}
