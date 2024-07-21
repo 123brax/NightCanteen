@@ -10,7 +10,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 
 const App = () => {
-  const url = "https://night-canteen-server-zzlm.vercel.app"
+  const url = "https://night-canteen-server.vercel.app"
   return (
     <div>
       <ToastContainer/>

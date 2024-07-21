@@ -16,4 +16,4 @@ export const assets ={
     parcel_icon
 }
 
-export const url = 'https://night-canteen-server-zzlm.vercel.app'
+export const url = 'https://night-canteen-server.vercel.app'
