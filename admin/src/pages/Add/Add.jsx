@@ -11,7 +11,7 @@ const Add = ({url}) => {
     name:"",
     description:"",
     price:"",
-    category:"Salad"
+    category:"New"
   })
 
   function onChangeHandler(event) {
@@ -22,16 +22,32 @@ const Add = ({url}) => {
 
   async function onSubmitHandler(event) {
     event.preventDefault();
-    console.log(data, image)
     const formData = new FormData();
-    formData.append("name", data.name)
-    formData.append("description", data.description)
-    formData.append("price", Number(data.price))
-    formData.append("category", data.category)
-    formData.append("image", image)
+    formData.append("file", image)
+    formData.append("upload_preset", "fps0bfea")
+    formData.append("cloud_name", "dmewzm6mg")
+    let imageUploadUrl = ""
+    try {
+      let imageUpload = await fetch("https://api.cloudinary.com/v1_1/dmewzm6mg/image/upload",{
+        method: "post",
+        body:formData
+      })
+      let imageUploadJson = await imageUpload.json()
+      imageUploadUrl = imageUploadJson.url
+    } catch (error) {
+      toast.error(error)
+    }
+
+    let reqdata = {
+      name: data.name,
+      description: data.description,
+      price: data.price,
+      category: data.category,
+      image: imageUploadUrl,
+    }
 
     const response = await axios.post(
-      `${url}/api/food/add`, formData
+      `${url}/api/food/add`, reqdata
     )
 
     if (response.data.success) {
@@ -72,13 +88,17 @@ const Add = ({url}) => {
           <div className="add-category flex-col">
             <p>Product Category</p>
             <select onChange={onChangeHandler} value={data.category} name="category" id="">
-              <option value="Salad">Salad</option>
-              <option value="Rolls">Rolls</option>
-              <option value="Deserts">Deserts</option>
+              <option value="New">New</option>
+              <option value="Offers">Offers</option>
+              <option value="Juices">Juices</option>
+              <option value="Shakes">Shakes</option>
+              <option value="Cold Coffee">Cold Coffee</option>
               <option value="Sandwich">Sandwich</option>
-              <option value="Cake">Cake</option>
+              <option value="Pizza">Pizza</option>
+              <option value="Chinese">Chinese</option>
               <option value="Pasta">Pasta</option>
-              <option value="Noodles">Noodles</option>
+              <option value="Meals">Meals</option>
+              <option value="Extra">Extra</option>
             </select>
           </div>
           <div className="add-price flex-col">
