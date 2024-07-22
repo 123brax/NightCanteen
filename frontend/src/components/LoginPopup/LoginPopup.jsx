@@ -1,12 +1,14 @@
 import React, { useContext, useState } from 'react'
 import './LoginPopup.css'
 import { assets } from '../../assets/assets'
+import { useNavigate } from 'react-router-dom'
 import { StoreContext } from '../../context/StoreContext'
 import axios from 'axios'
 
 const LoginPopup = ({setShowLogin}) => {
   const {url, setToken} = useContext(StoreContext)
   const[currentState, setCurrentState] = useState("Sign Up")
+  const navigate = useNavigate()
   const [data, setData] = useState({
     name:"",
     number:"",
@@ -35,6 +37,7 @@ const LoginPopup = ({setShowLogin}) => {
       setToken(response.data.token)
       localStorage.setItem("zestHeavenToken", response.data.token)
       setShowLogin(false)
+      navigate("/")
     } else {
       alert(response.data.message)
     }

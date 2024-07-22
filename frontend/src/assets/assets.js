@@ -5,6 +5,8 @@ import header_img from './header_img.png'
 import search_icon from './search_icon.png'
 import menu_new from './menu_new.png'
 import menu_offer from './menu_offer.png'
+import log from './log.svg'
+import register from './register.svg'
 import menu_1 from './menu_1.png'
 import menu_2 from './menu_2.png'
 import menu_3 from './menu_3.png'
@@ -87,7 +89,9 @@ export const assets = {
     logout_icon,
     bag_icon,
     parcel_icon,
-    payment
+    payment,
+    log,
+    register
 }
 
 export const menu_list = [

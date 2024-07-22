@@ -8,10 +8,15 @@ import Footer from './components/Footer/Footer'
 import LoginPopup from './components/LoginPopup/LoginPopup'
 import PaymentPopup from './components/PaymentPopup/PaymentPopup'
 import MyOrders from './pages/MyOrders/MyOrders'
+import Auth from './pages/Auth/Auth'
 
 const App = () => {
   const [showLogin, setShowLogin] = useState(false)
   const [showPayment, setShowPayment] = useState(false)
+  console.log(localStorage.getItem("zestHeavenToken"))
+  if (!localStorage.getItem("zestHeavenToken")) {
+    return <Auth/>
+  }
   return (
     <>
       {showLogin?<LoginPopup setShowLogin={setShowLogin}/>:<></>}

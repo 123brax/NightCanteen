@@ -11,7 +11,7 @@ const Navbar = ({setShowLogin}) => {
   function logout() {
     localStorage.removeItem("zestHeavenToken")
     setToken("");
-    navigate("/")
+    window.location.reload()
   }
   
   return (
