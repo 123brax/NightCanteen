@@ -13,6 +13,7 @@ import Auth from './pages/Auth/Auth'
 const App = () => {
   const [showLogin, setShowLogin] = useState(false)
   const [showPayment, setShowPayment] = useState(false)
+  const [toDeliver, setToDeliver] = useState(false)
   console.log(localStorage.getItem("zestHeavenToken"))
   if (!localStorage.getItem("zestHeavenToken")) {
     return <Auth/>
@@ -20,12 +21,12 @@ const App = () => {
   return (
     <>
       {showLogin?<LoginPopup setShowLogin={setShowLogin}/>:<></>}
-      {showPayment?<PaymentPopup setShowPayment={setShowPayment}/>:<></>}
+      {showPayment?<PaymentPopup toDeliver={toDeliver} setShowPayment={setShowPayment}/>:<></>}
       <div className='app'>
         <Navbar setShowLogin={setShowLogin}/>
         <Routes>
           <Route path='/' element={<Home/>}/>
-          <Route path='/cart' element={<Cart setShowPayment={setShowPayment}/>}/>
+          <Route path='/cart' element={<Cart setShowPayment={setShowPayment} toDeliver={toDeliver} setToDeliver={setToDeliver}/>}/>
           <Route path='/order' element={<PlaceOrder/>}/>
           <Route path='/myorders' element={<MyOrders/>}/>
         </Routes>

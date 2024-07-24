@@ -21,7 +21,6 @@ const MyOrders = () => {
             fetchOrders()
         }
     },[token])
-    console.log(data);
     return (
         <div className='my-orders'>
             <h2>My Orders</h2>

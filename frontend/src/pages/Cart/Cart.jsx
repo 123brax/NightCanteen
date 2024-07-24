@@ -4,9 +4,10 @@ import { StoreContext } from '../../context/StoreContext'
 import { assets } from '../../assets/assets'
 import { useNavigate } from 'react-router-dom'
 
-const Cart = ({setShowPayment}) => {
+const Cart = ({setShowPayment, toDeliver, setToDeliver}) => {
   const {cartItems, food_list, removeFromCart, getTotalCartAmount, url} = useContext(StoreContext)
   const navigate = useNavigate()
+  console.log(toDeliver, "toDeliver")
   return (
     <div className='cart'>
       <div className="cart-items">
@@ -43,18 +44,23 @@ const Cart = ({setShowPayment}) => {
           <h2>Cart Totals</h2>
           <div>
             <div className="cart-total-details">
+              <p>To Deliver</p>
+              <p><input type='checkbox' checked={toDeliver} onClick={()=> setToDeliver(prev=>!prev)}/></p>
+            </div>
+            <hr />
+            <div className="cart-total-details">
               <p>Subtotal</p>
               <p>₹{getTotalCartAmount()}</p>
             </div>
             <hr />
             <div className="cart-total-details">
               <p>Delivery Fee</p>
-              <p>₹{getTotalCartAmount()===0?0:5}</p>
+              <p>₹{((getTotalCartAmount()===0) || !toDeliver)?0:5}</p>
             </div>
             <hr />
             <div className="cart-total-details">
               <p>Total</p>
-              <p>₹{getTotalCartAmount()+getTotalCartAmount()===0?0:5}</p>
+              <p>₹{getTotalCartAmount()+((getTotalCartAmount()===0 || !toDeliver)?0:5)}</p>
             </div>
           </div>
           <button disabled={getTotalCartAmount()===0} onClick={()=> setShowPayment(true)}>PROCEED TO CHECKOUT</button>
