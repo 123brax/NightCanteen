@@ -267,7 +267,7 @@
 
 @media (max-width: 870px) {
     .auth-container {
-        min-height: 800px;
+        min-height: 650px;
         height: 100vh;
     }
 
