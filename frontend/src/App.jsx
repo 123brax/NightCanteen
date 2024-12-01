@@ -14,6 +14,7 @@ const App = () => {
   const [showLogin, setShowLogin] = useState(false)
   const [showPayment, setShowPayment] = useState(false)
   const [toDeliver, setToDeliver] = useState(false)
+  const [address, setAddress] = useState("")
   console.log(localStorage.getItem("zestHeavenToken"))
   if (!localStorage.getItem("zestHeavenToken")) {
     return <Auth/>
@@ -21,12 +22,12 @@ const App = () => {
   return (
     <>
       {showLogin?<LoginPopup setShowLogin={setShowLogin}/>:<></>}
-      {showPayment?<PaymentPopup toDeliver={toDeliver} setShowPayment={setShowPayment}/>:<></>}
+      {showPayment?<PaymentPopup toDeliver={toDeliver} address={address} setShowPayment={setShowPayment}/>:<></>}
       <div className='app'>
         <Navbar setShowLogin={setShowLogin}/>
         <Routes>
           <Route path='/' element={<Home/>}/>
-          <Route path='/cart' element={<Cart setShowPayment={setShowPayment} toDeliver={toDeliver} setToDeliver={setToDeliver}/>}/>
+          <Route path='/cart' element={<Cart setShowPayment={setShowPayment} toDeliver={toDeliver} setToDeliver={setToDeliver} address={address} setAddress={setAddress}/>}/>
           <Route path='/order' element={<PlaceOrder/>}/>
           <Route path='/myorders' element={<MyOrders/>}/>
         </Routes>

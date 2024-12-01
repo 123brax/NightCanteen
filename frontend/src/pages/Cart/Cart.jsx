@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import { toast } from 'react-toastify'
 
-const Cart = ({setShowPayment, toDeliver, setToDeliver}) => {
+const Cart = ({setShowPayment, toDeliver, setToDeliver, setAddress, address}) => {
   const {cartItems, food_list, removeFromCart, getTotalCartAmount, url, fetchCoupon} = useContext(StoreContext)
   const navigate = useNavigate()
   const [promo, setPromo] = useState("")
@@ -49,6 +49,11 @@ const Cart = ({setShowPayment, toDeliver, setToDeliver}) => {
               <p>To Deliver</p>
               <p><input type='checkbox' checked={toDeliver} onClick={()=> setToDeliver(prev=>!prev)}/></p>
             </div>
+            {toDeliver ? <div className="cart-total-details delivery-cover">
+              <p>Address</p>
+              <p><input type="text" className='delivery-address' placeholder='Delivery Address' id="" value={address} onChange={e=> setAddress(e.target.value)}/></p>
+            </div>:<></>}
+            
             <hr />
             <div className="cart-total-details">
               <p>Subtotal</p>

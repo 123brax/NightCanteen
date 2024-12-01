@@ -52,8 +52,7 @@ const Orders = ({ url }) => {
   }
 
   useEffect(() => {
-    fetchAllOrders(currentStatus)
-
+    newItemOrders()
     // setInterval(() => {
     //   newItemOrders()
     //   console.log("timer opeop")

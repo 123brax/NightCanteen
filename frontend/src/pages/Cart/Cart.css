@@ -10,12 +10,24 @@
     color: gray;
     font-size: max(1vw, 12px);
 }
-
+.delivery-address{
+    background: transparent;
+    border: 1px solid;
+    outline: none;
+    padding: 5px 10px;
+    width: 100%;
+    border-radius: 3px;
+    margin-top: 10px;
+}
 .cart-items-item{
     margin: 10px 0;
     color: black;
 }
-
+.delivery-cover{
+    display: flex;
+    flex-direction: column;
+    margin-top: 10px;
+}
 .cart-items-item-img{
     width: 50px;
 }

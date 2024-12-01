@@ -7,7 +7,7 @@ import { StoreContext } from '../../context/StoreContext'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 
-const PaymentPopup = ({ setShowPayment, toDeliver }) => {
+const PaymentPopup = ({ setShowPayment, toDeliver, address }) => {
   const {getTotalCartAmount, token, food_list, cartItems, url, setCartItems} = useContext(StoreContext)
   const [currentState, setCurrentState] = useState("Payment Mode")
   const [currentButtonState, setCurrentButtonState] = useState("Proceed")
@@ -29,7 +29,7 @@ const PaymentPopup = ({ setShowPayment, toDeliver }) => {
       })
       let deliver = "On Store"
       if (toDeliver) {
-        deliver="Deliver"
+        deliver=address
       }
       const response = await axios.post(url+"/api/order/place",{
         amount: getTotalCartAmount(),
