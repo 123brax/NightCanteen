@@ -36,3 +36,16 @@
         width: 40px;
     }
 }
+
+.order-top{
+    display: flex;
+    justify-content: space-between;
+}
+
+.order-top select{
+    background: #fff1e4;
+    border: 1px solid orange;
+    width: max(10vw,120px);
+    padding: 10px;
+    outline: none;
+}

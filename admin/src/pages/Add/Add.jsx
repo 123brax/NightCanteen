@@ -11,7 +11,9 @@ const Add = ({url}) => {
     name:"",
     description:"",
     price:"",
-    category:"New"
+    category:"New",
+    coupon:"",
+    discount:0
   })
 
   function onChangeHandler(event) {
@@ -66,6 +68,34 @@ const Add = ({url}) => {
     }
   }
   
+  async function onCouponSubmitHandler(event) {
+    event.preventDefault();
+    let reqdata = {
+      name: data.coupon,
+      discount: data.discount
+    }
+
+    const response = await axios.post(
+      `${url}/api/coupon/add`, reqdata
+    )
+
+    if (response.data.success) {
+      setData(
+        {
+          name:"",
+          description:"",
+          price:"",
+          category:"Salad",
+          coupon:"",
+          discount:0
+        }
+      )
+      toast.success(response.data.message)
+    } else {
+      toast.error(response.data.message)
+    }
+  }
+
   return (
     <div className='add'>
       <form className='flex-col' onSubmit={onSubmitHandler}>
@@ -108,6 +138,19 @@ const Add = ({url}) => {
         </div>
         <button type='submit' className='add-btn'>ADD</button>
       </form>
+
+      <form className='flex-col' onSubmit={onCouponSubmitHandler}>
+        <div className="add-product-name flex-col">
+          <p>Coupon name</p>
+          <input onChange={onChangeHandler} value={data.coupon} type="text" name="coupon" placeholder='Type here' id="" />
+        </div>
+        <div className="add-price flex-col">
+            <p>Coupon discount</p>
+            <input type="Number" onChange={onChangeHandler} value={data.discount} name="discount" placeholder='₹20' id="" />
+          </div>
+        <button type='submit' className='add-btn'>ADD COUPON</button>
+      </form>
+
     </div>
   )
 }

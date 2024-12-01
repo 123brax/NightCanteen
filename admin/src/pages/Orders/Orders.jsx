@@ -10,23 +10,32 @@ import soundnoti from '../../assets/noti.wav'
 const Orders = ({ url }) => {
   const sound = new Audio(soundnoti)
   const [orders, setOrders] = useState([])
-  const fetchAllOrders = async () => {
+  const [currentStatus, setCurrentStatus] = useState("All Orders")
+  const fetchAllOrders = async (status) => {
     const response = await axios.get(`${url}/api/order/list`);
-    console.log(response)
+    let filteredOrders = response.data.data.filter(order => order.status === status);
+    if (status==="All Orders") {
+      filteredOrders = response.data.data
+    }
     if (response.data.success) {
-      setOrders(response.data.data)
+      setOrders(filteredOrders)
     } else {
       toast.error(response.data.error)
     }
   }
 
+  function statusChangeHandler(e) {
+    setCurrentStatus(e.target.value)
+    fetchAllOrders(e.target.value)
+  }
+
   const newItemOrders = async () => {
     const response = await axios.get(`${url}/api/order/newItem`);
-    console.log(response)
     if (response.data.success) {
       if (response.data.newItem) {
         await fetchAllOrders()
-        sound.play()
+        // sound.pause()
+        // sound.play()
       }
     } else {
       toast.error(response.data.error)
@@ -36,23 +45,34 @@ const Orders = ({ url }) => {
   async function statusHandler(e, orderId) {
     const response = await axios.post(`${url}/api/order/status`, { orderId, status: e.target.value });
     if (response.data.success) {
-      await fetchAllOrders()
+      await fetchAllOrders(currentStatus)
     } else {
       toast.error(response.data.error)
     }
   }
 
   useEffect(() => {
-    fetchAllOrders()
+    fetchAllOrders(currentStatus)
 
     setInterval(() => {
       newItemOrders()
-    }, 10000);
+      console.log("timer opeop")
+    }, 1000);
   }, [])
 
   return (
     <div className='order add'>
-      <h3>Order Page</h3>
+      <div className="order-top">
+        <h3>Order Page</h3>
+        <select onChange={(e) => statusChangeHandler(e)}>
+                <option value="All Orders">All Orders</option>
+                <option value="Approval Required">Approval Required</option>
+                <option value="Food Processing">Food Processing</option>
+                <option value="Food Prepared">Food Prepared</option>
+                <option value="Payment Done">Payment Done</option>
+                <option value="Cancelled">Cancelled</option>
+              </select>
+        </div>
       <div className="order-list">
         {orders.map((order, index) => (
           <div className='order-item' key={index}>

@@ -33,7 +33,7 @@ const userOrders = async (req, res) => {
 // list orders for admin panel
 const listOrders = async (req, res) => {
     try {
-        const orders = await orderModel.find({})
+        const orders = await orderModel.find({}).sort({ date: -1 });
         res.json({success:true, data:orders})
     } catch (error) {
         res.json({success:false, message:"Error"})
@@ -44,7 +44,11 @@ const listOrders = async (req, res) => {
 const updateStatus = async (req,res) => {
     try {
         console.log(req.body);
-        await orderModel.findByIdAndUpdate(req.body.orderId, {status:req.body.status})
+        let payment = false
+        if (req.body.status === "Payment Done") {
+            payment = true
+        }
+        await orderModel.findByIdAndUpdate(req.body.orderId, {status:req.body.status, payment: payment})
         res.json({success:true, message:"Updated status"})
     } catch (error) {
         res.json({success:false, message:"Error"})

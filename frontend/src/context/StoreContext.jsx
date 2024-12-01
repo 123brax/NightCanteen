@@ -8,6 +8,7 @@ const StoreContextProvider = (props) => {
     const url = "https://night-canteen-server.vercel.app"
     const [token, setToken] = useState("")
     const [food_list, setFoodList] = useState([])
+    const [couponDiscount, setCouponDiscount] = useState(0)
 
     async function addToCart(itemId) {
         if (!cartItems[itemId]) {
@@ -37,12 +38,23 @@ const StoreContextProvider = (props) => {
         getTotalCartAmount,
         url,
         token,
-        setToken
+        setToken,
+        fetchCoupon,
+        couponDiscount,
     }
 
     async function fetchFoodList() {
         const response = await axios.get(`${url}/api/food/list`)
         setFoodList(response.data.data)
+    }
+
+    async function fetchCoupon(couponName) {
+        const response = await axios.post(url+"/api/coupon/get",{name:couponName})
+        if (response.data.couponData) {
+            setCouponDiscount(response.data.couponData.discount)
+        } else{
+            setCouponDiscount(0)
+        }
     }
 
     const loadCartData = async (token) => {
@@ -70,6 +82,7 @@ const StoreContextProvider = (props) => {
                 
             }
         }
+        totalAmount = totalAmount - ((totalAmount*couponDiscount)/100)
         return totalAmount
     }
     return (

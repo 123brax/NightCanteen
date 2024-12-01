@@ -1,13 +1,15 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import './Cart.css'
 import { StoreContext } from '../../context/StoreContext'
 import { assets } from '../../assets/assets'
 import { useNavigate } from 'react-router-dom'
+import axios from 'axios'
+import { toast } from 'react-toastify'
 
 const Cart = ({setShowPayment, toDeliver, setToDeliver}) => {
-  const {cartItems, food_list, removeFromCart, getTotalCartAmount, url} = useContext(StoreContext)
+  const {cartItems, food_list, removeFromCart, getTotalCartAmount, url, fetchCoupon} = useContext(StoreContext)
   const navigate = useNavigate()
-  console.log(toDeliver, "toDeliver")
+  const [promo, setPromo] = useState("")
   return (
     <div className='cart'>
       <div className="cart-items">
@@ -55,12 +57,12 @@ const Cart = ({setShowPayment, toDeliver, setToDeliver}) => {
             <hr />
             <div className="cart-total-details">
               <p>Delivery Fee</p>
-              <p>₹{((getTotalCartAmount()===0) || !toDeliver)?0:5}</p>
+              <p>₹{((getTotalCartAmount() >= 200) || !toDeliver)?0:20}</p>
             </div>
             <hr />
             <div className="cart-total-details">
               <p>Total</p>
-              <p>₹{getTotalCartAmount()+((getTotalCartAmount()===0 || !toDeliver)?0:5)}</p>
+              <p>₹{getTotalCartAmount()+(((getTotalCartAmount() >= 200) || !toDeliver)?0:20)}</p>
             </div>
           </div>
           <button disabled={getTotalCartAmount()===0} onClick={()=> setShowPayment(true)}>PROCEED TO CHECKOUT</button>
@@ -69,8 +71,8 @@ const Cart = ({setShowPayment, toDeliver, setToDeliver}) => {
           <div>
             <p>If you have a promo code, Enter it here</p>
             <div className="cart-promocode-input">
-              <input type="text" placeholder='promo code' id="" />
-              <button>Submit</button>
+              <input type="text" placeholder='promo code' id="" onChange={e=> setPromo(e.target.value)}/>
+              <button onClick={()=>fetchCoupon(promo)}>Submit</button>
             </div>
           </div>
         </div>
