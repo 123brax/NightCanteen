@@ -9,8 +9,8 @@ import soundnoti from '../../assets/noti.wav'
 
 const Orders = ({ url }) => {
   const sound = new Audio(soundnoti)
+  let currentStatus="All Order"
   const [orders, setOrders] = useState([])
-  const [currentStatus, setCurrentStatus] = useState("All Orders")
   const fetchAllOrders = async (status) => {
     const response = await axios.get(`${url}/api/order/list`);
     let filteredOrders = response.data.data.filter(order => order.status === status);
@@ -25,7 +25,7 @@ const Orders = ({ url }) => {
   }
 
   function statusChangeHandler(e) {
-    setCurrentStatus(e.target.value)
+    currentStatus = e.target.value
     fetchAllOrders(e.target.value)
   }
 
@@ -33,7 +33,7 @@ const Orders = ({ url }) => {
     const response = await axios.get(`${url}/api/order/newItem`);
     if (response.data.success) {
       if (response.data.newItem) {
-        await fetchAllOrders()
+        await fetchAllOrders(currentStatus)
         // sound.pause()
         // sound.play()
       }
@@ -54,10 +54,10 @@ const Orders = ({ url }) => {
   useEffect(() => {
     fetchAllOrders(currentStatus)
 
-    setInterval(() => {
-      newItemOrders()
-      console.log("timer opeop")
-    }, 1000);
+    // setInterval(() => {
+    //   newItemOrders()
+    //   console.log("timer opeop")
+    // }, 1000);
   }, [])
 
   return (

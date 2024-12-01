@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Navbar from './components/Navbar/Navbar'
 import Sidebar from './components/Sidebar/Sidebar'
 import { Routes, Route } from 'react-router-dom'
@@ -11,6 +11,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 const App = () => {
   const url = "https://night-canteen-server.vercel.app"
+  const [currentStatus, setCurrentStatus] = useState("All Orders")
   return (
     <div>
       <ToastContainer/>
@@ -21,8 +22,7 @@ const App = () => {
         <Routes>
           <Route path='/add' element={<Add url={url}/>}/>
           <Route path='/list' element={<List url={url}/>}/>
-          <Route path='/orders' element={<Orders url={url}/>}/>
-          <Route path='/coupon' element={<Orders url={url}/>}/>
+          <Route path='/orders' element={<Orders url={url} currentStatus={currentStatus} setCurrentStatus={setCurrentStatus} />}/>
         </Routes>
       </div>
     </div>
