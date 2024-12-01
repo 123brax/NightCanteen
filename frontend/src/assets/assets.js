@@ -15,6 +15,8 @@ import menu_5 from './menu_5.png'
 import menu_6 from './menu_6.png'
 import menu_7 from './menu_7.png'
 import menu_8 from './menu_8.png'
+import menu_9 from './menu_9.png'
+import menu_10 from './menu_10.png'
 import menu_extra from './menu_extra.png'
 
 import payment from './payment.png'
@@ -104,7 +106,7 @@ export const menu_list = [
         menu_image: menu_offer
     },
     {
-        menu_name: "Juices",
+        menu_name: "Drinks",
         menu_image: menu_1
     },
     {
@@ -112,7 +114,7 @@ export const menu_list = [
         menu_image: menu_2
     },
     {
-        menu_name: "Cold Coffee",
+        menu_name: "Coffee",
         menu_image: menu_3
     },
     {
@@ -124,7 +126,7 @@ export const menu_list = [
         menu_image: menu_5
     },
     {
-        menu_name: "Chinese",
+        menu_name: "Chai",
         menu_image: menu_6
     },
     {
@@ -134,6 +136,14 @@ export const menu_list = [
     {
         menu_name: "Meals",
         menu_image: menu_8
+    },
+    {
+        menu_name: "Bites",
+        menu_image: menu_9
+    },
+    {
+        menu_name: "Maggie",
+        menu_image: menu_10
     },
     {
         menu_name: "Extra",
