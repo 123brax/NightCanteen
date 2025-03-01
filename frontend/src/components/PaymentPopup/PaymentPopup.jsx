@@ -67,13 +67,13 @@ const PaymentPopup = ({ setShowPayment, toDeliver, address }) => {
               </div>
             </div>
             <hr />
-            <div className="paymentPopup-popup-paymentmode" onClick={() => setPaymentMode("cod")}>
+            {/* <div className="paymentPopup-popup-paymentmode" onClick={() => setPaymentMode("cod")}>
               <input type="radio" name='paymentmode' checked={paymentMode === "cod"} />
               <div className="paymentPopup-popup-paymentmode-type">
                 <p>Pay on Delivery</p>
                 <p>Order now, pay on delivery. Simple, secure, and convenient!</p>
               </div>
-            </div>
+            </div> */}
           </> :
           currentState === "QR code" ?
             <div className="paymentPopup-popup-paymentmode-qr" onClick={() => setPaymentMode("upi")}>

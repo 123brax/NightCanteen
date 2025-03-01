@@ -15,7 +15,6 @@ const App = () => {
   const [showPayment, setShowPayment] = useState(false)
   const [toDeliver, setToDeliver] = useState(false)
   const [address, setAddress] = useState("")
-  console.log(localStorage.getItem("zestHeavenToken"))
   if (!localStorage.getItem("zestHeavenToken")) {
     return <Auth/>
   }
